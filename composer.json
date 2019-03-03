@@ -1,0 +1,10 @@
+{
+    "name": "przeslijmi/sirouter",
+    "version": "v1.0",
+    "type": "application",
+    "autoload": {
+        "psr-4": {
+            "Przeslijmi\\Sirouter\\": "src/"
+        }
+    }
+}

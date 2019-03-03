@@ -2,9 +2,4 @@
     "name": "przeslijmi/sirouter",
     "version": "v1.0",
     "type": "library",
-    "autoload": {
-        "psr-4": {
-            "Przeslijmi\\Sirouter\\": "src/"
-        }
-    }
 }

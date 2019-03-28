@@ -1,4 +1,4 @@
-<?php
+<?php declare(strict_types=1);
 
 namespace Przeslijmi\Sirouter\Tools;
 
@@ -7,13 +7,15 @@ namespace Przeslijmi\Sirouter\Tools;
  *
  * ## Usage example
  * ```
- * $attr = 'atr1=value&atr2=value'
+ * $attr = 'atr1=value&atr2=value&atr3=5&atr3=1&atr4=T+e+s.';
  * $attrs = AttributeExploder::explode($attr);
- * // attrs:
- * // [
- * //     'attr1' => 'value',
- * //     'attr2' => 'value',
- * // ]
+ * // $attrs = [
+ * //     'atr1' => 'value',
+ * //     'atr2' => 'value',
+ * //     'atr3' => '1',            // only last value is here
+ * //     'atr3[]' => [ '5', '1' ], // two values given - changed into array
+ * //     'atr4' => 'T e s.',
+ * // ];
  * ```
  */
 class AttributeExploder
@@ -30,10 +32,10 @@ class AttributeExploder
     public static function explode(string $attributes)
     {
 
-        // lvd
+        // Lvd.
         $result = [];
 
-        // shortcut
+        // Shortcut.
         if (empty($attributes) === true) {
             return $result;
         }
@@ -42,10 +44,23 @@ class AttributeExploder
 
         foreach ($all as $pair) {
 
-            $pair = explode('=', $pair);
+            $pair  = explode('=', $pair);
+            $name  = urldecode($pair[0]);
+            $value = urldecode(( $pair[1] ?? '' ));
 
-            $name = urldecode($pair[0]);
-            $value = urldecode(($pair[1] ?? ''));
+            // If the result with this key already exists - create an array
+            // on key `name[]` - and add first element to this array - previous
+            // value for key `name`.
+            if (isset($result[$name])) {
+
+                // Create new array and put there previous value.
+                if (isset($result[$name . '[]']) === false) {
+                    $result[$name . '[]'] = [ $result[$name] ];
+                }
+
+                // Add next value to already existing array.
+                $result[$name . '[]'][] = $value;
+            }
 
             $result[$name] = $value;
         }

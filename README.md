@@ -8,7 +8,7 @@ Register and call routes.
 
 ## How to register route
 
-```
+```php
 // simplest
 Sirouter::register('/called-uri')->setCall('Namespace\Space\Class', 'get');
 
@@ -23,6 +23,6 @@ Sirouter::register('/called-uri/(\d+)')
 
 ## How to call registered route
 
-```
+```php
 Sirouter::call($_SERVER['PATH_INFO'], $_SERVER['REQUEST_METHOD'], $_SERVER['QUERY_STRING']);
 ```

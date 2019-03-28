@@ -1,4 +1,4 @@
-<?php
+<?php declare(strict_types=1);
 
 namespace Przeslijmi\Sirouter;
 
@@ -45,7 +45,7 @@ class Route
      * @var   string
      * @since v1.0
      */
-    private $method = 'GET';
+    private $httpMethod = 'GET';
 
     /**
      * Class name to call to serve route (has to be ancestor of Przeslijmi\Sirouter\Resource).
@@ -90,19 +90,19 @@ class Route
     /**
      * Constructor.
      *
-     * @param string $uri    URI of the Route.
-     * @param string $method (opt., GET) HTTP Method used by the route.
+     * @param string $uri        URI of the Route.
+     * @param string $httpMethod Opt., GET. HTTP Method used by the route.
      *
      * @since  v1.0
      * @throws ClassFopException When creation of route has failed.
      * @return self
      */
-    public function __construct(string $uri, string $method='GET')
+    public function __construct(string $uri, string $httpMethod = 'GET')
     {
 
         try {
-            $this->setMethod($method);
-            $this->uri = $uri;
+            $this->setHttpMethod($httpMethod);
+            $this->uri  = $uri;
             $this->body = json_decode(file_get_contents('php://input'));
 
         } catch (\Exception $e) {
@@ -113,25 +113,25 @@ class Route
     /**
      * Sets HTTP Method for this Route.
      *
-     * @param string $method HTTP Method.
+     * @param string $httpMethod HTTP Method.
      *
      * @since  v1.0
      * @throws ParamOtosetException When HTTP Method is unknown.
      * @return self
      */
-    private function setMethod(string $method) : self
+    private function setHttpMethod(string $httpMethod) : self
     {
 
-        // lvd
-        $method = strtoupper($method);
+        // Lvd.
+        $httpMethod = strtoupper($httpMethod);
 
-        // test
-        if (in_array($method, Sirouter::ACCEPTED_HTTP_METHODS) === false) {
-            throw new ParamOtosetException('method', Sirouter::ACCEPTED_HTTP_METHODS, $method);
+        // Test.
+        if (in_array($httpMethod, Sirouter::ACCEPTED_HTTP_METHODS) === false) {
+            throw new ParamOtosetException('httpMethod', Sirouter::ACCEPTED_HTTP_METHODS, $httpMethod);
         }
 
-        // set
-        $this->method = $method;
+        // Set.
+        $this->httpMethod = $httpMethod;
 
         return $this;
     }
@@ -145,7 +145,7 @@ class Route
     public function getSignature() : string
     {
 
-        return $this->method . ':' . $this->uri;
+        return $this->httpMethod . ':' . $this->uri;
     }
 
     /**
@@ -154,7 +154,7 @@ class Route
      * No validation is started during registration - only on call.
      *
      * @param string $className  Name of the class (has to be ancestor of Przeslijmi\Sirouter\Resource).
-     * @param string $methodName Name of the method.
+     * @param string $methodName Name of the method inside class.
      *
      * @since  v1.0
      * @return self
@@ -162,7 +162,7 @@ class Route
     public function setCall(string $className, string $methodName) : self
     {
 
-        $this->className = $className;
+        $this->className  = $className;
         $this->methodName = $methodName;
 
         return $this;
@@ -183,6 +183,18 @@ class Route
     }
 
     /**
+     * Returns HTTP method for this Route.
+     *
+     * @since  v1.0
+     * @return string
+     */
+    public function getHttpMethod() : string
+    {
+
+        return $this->httpMethod;
+    }
+
+    /**
      * Returns name of the method to call in this Route.
      *
      * @since  v1.0
@@ -197,14 +209,14 @@ class Route
     /**
      * Sets param (at least defines with order and name without value).
      *
-     * @param int         $order Order number when reading URI with regex commands (starting from 0).
+     * @param integer     $order Order number when reading URI with regex commands (starting from 0).
      * @param string      $name  Name of the param to use in Resources.
-     * @param string|null $value (opt., null) Value of the param.
+     * @param string|null $value Opt., null. Value of the param.
      *
      * @since  v1.0
      * @return self
      */
-    public function setParam(int $order, string $name, ?string $value=null) : self
+    public function setParam(int $order, string $name, ?string $value = null) : self
     {
 
         $this->params[$order] = [
@@ -262,7 +274,7 @@ class Route
     public function getParamsNames() : array
     {
 
-        // lvd
+        // Lvd.
         $result = [];
 
         foreach ($this->params as $order => $param) {
@@ -278,7 +290,8 @@ class Route
      * @param string $name Name of the param.
      *
      * @since  v1.0
-     * @throws MethodFopException
+     * @throws ParamOtosetException On routeParameterByName.
+     * @throws MethodFopException On getNonexistingParameterForRoute.
      * @return string Param's value.
      */
     public function getParam(string $name) : string
@@ -323,7 +336,8 @@ class Route
      * @param string $name Name of the Attribute.
      *
      * @since  v1.0
-     * @throws MethodFopException
+     * @throws ParamOtosetException On routeAttributeByName.
+     * @throws MethodFopException On getNonexistingAttributeForRoute.
      * @return string Attributes's value.
      */
     public function getAttribute(string $name) : string
@@ -378,15 +392,15 @@ class Route
     public function setAttributesFromString(string $values) : self
     {
 
-        // shortcut
+        // Shortcut.
         if (empty($values) === true) {
             return $this;
         }
 
-        // explode
+        // Explode.
         $attributes = AttributeExploder::explode($values);
 
-        // save
+        // Save.
         foreach ($attributes as $name => $value) {
             $this->setAttribute($name, $value);
         }

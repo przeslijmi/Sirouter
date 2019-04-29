@@ -51,7 +51,7 @@ class AttributeExploder
             // If the result with this key already exists - create an array
             // on key `name[]` - and add first element to this array - previous
             // value for key `name`.
-            if (isset($result[$name])) {
+            if (isset($result[$name]) === true) {
 
                 // Create new array and put there previous value.
                 if (isset($result[$name . '[]']) === false) {
@@ -63,7 +63,7 @@ class AttributeExploder
             }
 
             $result[$name] = $value;
-        }
+        }//end foreach
 
         return $result;
     }

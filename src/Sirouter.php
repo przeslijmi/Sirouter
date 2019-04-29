@@ -142,6 +142,7 @@ class Sirouter
         /*
          * if you're here - proper Route has been found
          */
+
         $route->setAttributesFromString($attributes);
 
         // Lvd.

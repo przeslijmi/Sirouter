@@ -77,13 +77,15 @@ final class SirouterTest extends TestCase
      * Test if test route with params will be called properly and return good response.
      *
      * @return void
+     *
+     * @phpcs:disable Zend.NamingConventions.ValidVariableName.ContainsNumbers
      */
     public function testCallingExistingRouteWithParams() : void
     {
 
         // Lvd.
-        $param1 = (string) rand(1000, 9999);
-        $param2 = (string) rand(1000, 9999);
+        $param1           = (string) rand(1000, 9999);
+        $param2           = (string) rand(1000, 9999);
         $responseExpected = [
             'msg' => 'This is answer for GET test call!',
             'params' => [

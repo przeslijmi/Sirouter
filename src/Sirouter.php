@@ -42,14 +42,15 @@ class Sirouter
      *
      * Used for testing purposes.
      *
-     * @var boolean
+     * @var   boolean
+     * @since v1.0
      */
     public static $sendingHeader = true;
 
     /**
      * Store with all stored routes that can be used.
      *
-     * @var   array
+     * @var   Route[]
      * @since v1.0
      */
     private static $store = [];
@@ -87,6 +88,7 @@ class Sirouter
      * @param string $method     HTTP Method that client used.
      * @param string $attributes Opt., empty. Additional attribues that client sent (Query String).
      *
+     * @since  v1.0
      * @throws ClassDonoexException On classThatServesRoute.
      * @throws MethodFopException On routeToNonexistingClass.
      * @throws ClassWrotypeException On routeClassHasToBeAChildOfResource.
@@ -94,43 +96,13 @@ class Sirouter
      * @throws MethodDonoexException On methodThatServesRoute.
      * @throws MethodFopException On routeToNonexistingMethodInsideClass.
      * @throws MethodFopException On registeredRouteCanNotBeCalled .
-     * @since  v1.0
      * @return void
      */
     public static function call(string $url, string $method, ?string $attributes = '') : void
     {
 
-        // Lvd.
-        $route   = null;
-        $lookFor = $method . ':' . $url;
-
-        // Try to find route directly.
-        if (isset(self::$store[$lookFor]) === true) {
-            $route = self::$store[$lookFor];
-        }
-
-        // If failed - try to look for it by going foreach.
-        if ($route === null) {
-
-            foreach (self::$store as $signature => $routeToTest) {
-
-                $regex = '/^' . str_replace('/', '\\/', $signature) . '$/';
-                preg_match_all($regex, $lookFor, $found);
-
-                if (isset($found[0][0]) === true) {
-
-                    // This is our route.
-                    $route = $routeToTest;
-
-                    // If there are params in this route.
-                    if (count($found) > 1) {
-                        $route->setParamsValuesFromRegex(array_slice($found, 1));
-                    }
-
-                    break;
-                }
-            }
-        }//end if
+        // Find route.
+        $route = self::findRoute($url, $method);
 
         // If failed up to here - redirect response 404.
         if ($route === null) {
@@ -194,5 +166,52 @@ class Sirouter
             throw (new MethodFopException('registeredRouteCanNotBeCalled', $e))
                 ->addInfo('route', $route->getSignature());
         }//end try
+    }
+
+    /**
+     * Find which route fits for $url or $method. Return null if there is any.
+     *
+     * @param string $url    Url that client asked for.
+     * @param string $method HTTP Method that client used.
+     *
+     * @since  v1.0
+     * @return null|Route
+     */
+    private static function findRoute(string $url, string $method) : ?Route
+    {
+
+        // Lvd.
+        $route   = null;
+        $lookFor = $method . ':' . $url;
+
+        // Try to find route directly.
+        if (isset(self::$store[$lookFor]) === true) {
+            $route = self::$store[$lookFor];
+        }
+
+        // If failed - try to look for it by going foreach.
+        if ($route === null) {
+
+            foreach (self::$store as $signature => $routeToTest) {
+
+                $regex = '/^' . str_replace('/', '\\/', $signature) . '$/';
+                preg_match_all($regex, $lookFor, $found);
+
+                if (isset($found[0][0]) === true) {
+
+                    // This is our route.
+                    $route = $routeToTest;
+
+                    // If there are params in this route.
+                    if (count($found) > 1) {
+                        $route->setParamsValuesFromRegex(array_slice($found, 1));
+                    }
+
+                    break;
+                }
+            }
+        }//end if
+
+        return $route;
     }
 }

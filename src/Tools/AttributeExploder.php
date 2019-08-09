@@ -29,7 +29,7 @@ class AttributeExploder
      * @since  v1.0
      * @return array
      */
-    public static function explode(string $attributes)
+    public static function explode(string $attributes) : array
     {
 
         // Lvd.

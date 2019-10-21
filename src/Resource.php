@@ -64,6 +64,25 @@ abstract class Resource
     }
 
     /**
+     * Sends TXT response to the client.
+     *
+     * @param string  $response Response to be showed as TXT.
+     * @param integer $code     Opt., 200. HTTP Response code.
+     *
+     * @since  v1.2
+     * @return void
+     */
+    public function sendTxt(string $response, int $code = 200) : void
+    {
+
+        // Set headers.
+        http_response_code($code);
+        header('Content-type: text/plain; charset=utf-8');
+
+        echo json_encode($response);
+    }
+
+    /**
      * Setter for `$this->route`.
      *
      * @param Route $route Route.

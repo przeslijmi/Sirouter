@@ -1,5 +1,9 @@
 # Changelog
 
+## v1.2.0 - 2019-10-21
+
+- Added: `sendTxt()` method - next to existing `sendJson()` to send responses to client.
+
 ## v1.1.0 - 2019-09-10
 
 - Added: `configSpecimen.php` to resources.

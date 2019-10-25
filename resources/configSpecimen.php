@@ -24,6 +24,9 @@ Sirouter::register('/_testScalar_', 'GET')
 Sirouter::register('/_testWrotype_', 'GET')
     ->setCall('Przeslijmi\Sirouter\Helpers\ExampleRsrc', 'getWrotype');
 
+Sirouter::register('/_testTxt_', 'GET')
+    ->setCall('Przeslijmi\Sirouter\Helpers\ExampleRsrc', 'getTxt');
+
 // method 'delete' is not present in the class on test purpose
 Sirouter::register('/_test_', 'DELETE')
     ->setCall('Przeslijmi\Sirouter\Helpers\ExampleRsrc', 'delete');

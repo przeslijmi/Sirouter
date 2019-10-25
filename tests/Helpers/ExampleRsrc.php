@@ -74,4 +74,18 @@ class ExampleRsrc extends Resource
 
         $this->sendJson($response);
     }
+
+    /**
+     * Send text answer as a response.
+     *
+     * @return void
+     */
+    public function getTxt() : void
+    {
+
+        // Create response.
+        $response = 'OK';
+
+        $this->sendTxt($response);
+    }
 }

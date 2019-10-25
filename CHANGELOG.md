@@ -1,5 +1,10 @@
 # Changelog
 
+## v1.3.0 - 2019-10-25
+
+- Added 100% code coverage report.
+- Updated config specimen - make updates locally.
+
 ## v1.2.0 - 2019-10-21
 
 - Added: `sendTxt()` method - next to existing `sendJson()` to send responses to client.

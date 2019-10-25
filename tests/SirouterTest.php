@@ -47,11 +47,11 @@ final class SirouterTest extends TestCase
     }
 
     /**
-     * Test if `/_test_` route will be called properly and return good response..
+     * Test if `/_test_` route will be called properly and return good response.
      *
      * @return void
      */
-    public function testCallingExistingRoute() : void
+    public function testCallingExistingJsonRoute() : void
     {
 
         // Lvd.
@@ -65,6 +65,30 @@ final class SirouterTest extends TestCase
 
         // Call existing route (see above).
         Sirouter::call('/_test_', 'GET');
+
+        // Read buffer.
+        $response = ob_get_clean();
+
+        $this->assertEquals(200, http_response_code());
+        $this->assertEquals($responseExpected, $response);
+    }
+
+    /**
+     * Test if `/_testTxt_` route will be called properly and return good response.
+     *
+     * @return void
+     */
+    public function testCallingExistingTxtRoute() : void
+    {
+
+        // Lvd.
+        $responseExpected = '"OK"';
+
+        // Block buffer.
+        ob_start();
+
+        // Call existing route (see above).
+        Sirouter::call('/_testTxt_', 'GET');
 
         // Read buffer.
         $response = ob_get_clean();

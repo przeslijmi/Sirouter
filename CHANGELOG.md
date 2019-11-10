@@ -1,5 +1,12 @@
 # Changelog
 
+## v1.3.1 - 2019-11-10
+
+- Added `build.sh.dist`.
+- Added `phpcs.xml`.
+- Added `phpunit.xml` to be more complete.
+- Changed `composer.json`.
+
 ## v1.3.0 - 2019-10-25
 
 - Added 100% code coverage report.

@@ -1,5 +1,9 @@
 # Przeslijmi Sirouter
 
+[![Run Status](https://api.shippable.com/projects/5e4da235f1aab60006271a7d/badge?branch=master)]()
+
+[![Coverage Badge](https://api.shippable.com/projects/5e4da235f1aab60006271a7d/coverageBadge?branch=master)]()
+
 Simple routing solution.
 
 ## Description

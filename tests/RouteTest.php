@@ -24,7 +24,7 @@ final class RouteTest extends TestCase
         $uri       = '/_testUri_/(\d+)';
         $className = 'Przeslijmi\Sirouter\Helpers\ExampleRsrc';
 
-        // Create Route
+        // Create Route.
         $route = new Route($uri);
         $route->setCall($className, 'get');
         $route->setParam(0, 'param1', '123Test');
@@ -32,6 +32,7 @@ final class RouteTest extends TestCase
         $route->setAttribute('attr2', 'value2');
         $route->setAttributesFromString('attr3=value3&attr4=value4');
 
+        // Test.
         $this->assertEquals('GET', $route->getHttpMethod());
         $this->assertEquals('GET:' . $uri, $route->getSignature());
         $this->assertEquals($className, $route->getClassName());
@@ -55,11 +56,13 @@ final class RouteTest extends TestCase
     public function testReadingNonexistingParam() : void
     {
 
-        // Create Route
+        // Create Route.
         $route = new Route('/_testUri_');
 
+        // Prepare.
         $this->expectException(MethodFopException::class);
 
+        // Test.
         $route->getParam('nonexistingParam');
     }
 
@@ -71,11 +74,13 @@ final class RouteTest extends TestCase
     public function testReadingNonexistingAttribute() : void
     {
 
-        // Create Route
+        // Create Route.
         $route = new Route('/_testUri_');
 
+        // Prepare.
         $this->expectException(MethodFopException::class);
 
+        // Test.
         $route->getAttribute('nonexistingAttribute');
     }
 }

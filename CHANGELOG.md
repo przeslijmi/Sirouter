@@ -1,5 +1,11 @@
 # Changelog
 
+## v1.3.2 - 2020-04-14
+
+- Added `shippable.yml`.
+- Added badges.
+- Updated `composer.json`.
+
 ## v1.3.1 - 2019-11-10
 
 - Added `build.sh.dist`.

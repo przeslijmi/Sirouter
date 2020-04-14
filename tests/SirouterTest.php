@@ -40,6 +40,7 @@ final class SirouterTest extends TestCase
     public function testRegisteringInproperRoute() : void
     {
 
+        // Prepare.
         $this->expectException(MethodFopException::class);
 
         // Register route expecting a throw.
@@ -69,6 +70,7 @@ final class SirouterTest extends TestCase
         // Read buffer.
         $response = ob_get_clean();
 
+        // Test.
         $this->assertEquals(200, http_response_code());
         $this->assertEquals($responseExpected, $response);
     }
@@ -93,6 +95,7 @@ final class SirouterTest extends TestCase
         // Read buffer.
         $response = ob_get_clean();
 
+        // Test.
         $this->assertEquals(200, http_response_code());
         $this->assertEquals($responseExpected, $response);
     }
@@ -128,6 +131,7 @@ final class SirouterTest extends TestCase
         // Read buffer.
         $response = ob_get_clean();
 
+        // Test.
         $this->assertEquals(200, http_response_code());
         $this->assertEquals($responseExpected, $response);
     }
@@ -140,6 +144,7 @@ final class SirouterTest extends TestCase
     public function testCallingExistingRouteWithNonexistingClass() : void
     {
 
+        // Prepare.
         $this->expectException(MethodFopException::class);
 
         // Call existing route with nonexisting class (see above).
@@ -154,6 +159,7 @@ final class SirouterTest extends TestCase
     public function testCallingExistingRouteWithNonRsrcClass() : void
     {
 
+        // Prepare.
         $this->expectException(MethodFopException::class);
 
         // Call existing route with nonexisting class (see above).
@@ -168,6 +174,7 @@ final class SirouterTest extends TestCase
     public function testCallingExistingRouteWithNonexistingMethod() : void
     {
 
+        // Prepare.
         $this->expectException(MethodFopException::class);
 
         // Call existing route with nonexisting class (see above).
@@ -191,9 +198,15 @@ final class SirouterTest extends TestCase
         // Read buffer.
         $response = ob_get_clean();
 
+        // Test.
         $this->assertEquals(404, http_response_code());
     }
 
+    /**
+     * Test if calling route the response with scalars works.
+     *
+     * @return void
+     */
     public function testCallingRouteThatReturnsScalars() : void
     {
 
@@ -210,13 +223,20 @@ final class SirouterTest extends TestCase
         // Read buffer.
         $response = ob_get_clean();
 
+        // Test.
         $this->assertEquals(200, http_response_code());
         $this->assertEquals($responseExpected, $response);
     }
 
+    /**
+     * Test if calling route that returns wrong type of response throws.
+     *
+     * @return void
+     */
     public function testCallingRouteThatReturnsWrotype() : void
     {
 
+        // Prepare.
         $this->expectException(MethodFopException::class);
 
         // Call existing route (see above).

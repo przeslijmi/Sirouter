@@ -23,7 +23,7 @@
   "autoload": {
     "psr-4": {
       "Przeslijmi\\Sirouter\\": "src/",
-      "Przeslijmi\\Sexceptions\\": "../../przeslijmi/sexceptions/src/"
+      "Przeslijmi\\Sexceptions\\": "vendor/przeslijmi/sexceptions/src/"
     }
   }
 }

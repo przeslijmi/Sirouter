@@ -79,7 +79,26 @@ abstract class Resource
         http_response_code($code);
         header('Content-type: text/plain; charset=utf-8');
 
-        echo json_encode($response);
+        echo $response;
+    }
+
+    /**
+     * Sends HTML response to the client.
+     *
+     * @param string  $response Response to be showed as HTML.
+     * @param integer $code     Opt., 200. HTTP Response code.
+     *
+     * @since  v1.2
+     * @return void
+     */
+    public function sendHtml(string $response, int $code = 200) : void
+    {
+
+        // Set headers.
+        http_response_code($code);
+        header('Content-type: text/html; charset=utf-8');
+
+        echo $response;
     }
 
     /**

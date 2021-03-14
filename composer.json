@@ -1,7 +1,7 @@
 {
   "name": "przeslijmi/sirouter",
   "description": "PHP library for routing of RESTful API.",
-  "version": "v1.3.2",
+  "version": "v1.4.0.rs1",
   "type": "library",
   "license": "MIT",
   "authors": [

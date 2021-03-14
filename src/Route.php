@@ -408,6 +408,17 @@ class Route
         return $this;
     }
 
+    public function setAttributesFromArray(array $attributes) : self
+    {
+
+        // Save.
+        foreach ($attributes as $name => $value) {
+            $this->setAttribute($name, $value);
+        }
+
+        return $this;
+    }
+
     /**
      * Return JSON body of the call.
      *

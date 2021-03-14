@@ -98,8 +98,10 @@ class Sirouter
      * @throws MethodFopException On registeredRouteCanNotBeCalled .
      * @return void
      */
-    public static function call(string $url, string $method, ?string $attributes = '') : void
+    public static function call(string $url, string $method, string $attributes = '') : void
     {
+
+        header('Access-Control-Allow-Origin: *');
 
         // Find route.
         $route = self::findRoute($url, $method);
@@ -114,8 +116,14 @@ class Sirouter
         /*
          * if you're here - proper Route has been found
          */
-
-        $route->setAttributesFromString($attributes);
+        if (empty($attributes) === false) {
+            $route->setAttributesFromString($attributes);
+        }
+        if ($method === 'POST') {
+            $route->setAttributesFromArray($_POST);
+        } elseif ($method === 'GET') {
+            $route->setAttributesFromArray($_GET);
+        }
 
         // Lvd.
         $className  = $route->getClassName();
@@ -163,8 +171,8 @@ class Sirouter
             $class->$methodName();
 
         } catch (\Exception $e) {
-            throw (new MethodFopException('registeredRouteCanNotBeCalled', $e))
-                ->addInfo('route', $route->getSignature());
+            // throw (new MethodFopException('registeredRouteCanNotBeCalled', $e))
+                // ->addInfo('route', $route->getSignature());
         }//end try
     }
 

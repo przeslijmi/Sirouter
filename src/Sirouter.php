@@ -130,7 +130,7 @@ class Sirouter
         $methodName = $route->getMethodName();
 
         // Use this route.
-        try {
+        // try {
 
             // Chk if class exists.
             if (class_exists($className) === false) {
@@ -170,10 +170,10 @@ class Sirouter
             $class->setRoute($route);
             $class->$methodName();
 
-        } catch (\Exception $e) {
+        // } catch (\Exception $e) {
             // throw (new MethodFopException('registeredRouteCanNotBeCalled', $e))
                 // ->addInfo('route', $route->getSignature());
-        }//end try
+        // }//end try
     }
 
     /**

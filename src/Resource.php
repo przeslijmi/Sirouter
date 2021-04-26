@@ -23,6 +23,13 @@ abstract class Resource
      */
     protected $route;
 
+    protected $response = [
+        'status' => 'success',
+        'data' => [
+            'errors' => [],
+        ],
+    ];
+
     /**
      * Sends JSON response to the client.
      *
@@ -40,6 +47,10 @@ abstract class Resource
         // Set headers.
         http_response_code($code);
         header('Content-type: application/json; charset=utf-8');
+
+        if ($response === null) {
+            return;
+        }
 
         // Reformat $response to encode it to JSON.
         $isArray    = ( is_array($response) );

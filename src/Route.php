@@ -266,6 +266,17 @@ class Route
     }
 
     /**
+     * Return all parameters.
+     *
+     * @return array
+     */
+    public function getParams() : array
+    {
+
+        return $this->params;
+    }
+
+    /**
      * Return names of all parameters.
      *
      * @since  v1.0
@@ -331,6 +342,17 @@ class Route
     }
 
     /**
+     * Get Values of all Attributes.
+     *
+     * @return array
+     */
+    public function getAttributes() : array
+    {
+
+        return $this->attributes;
+    }
+
+    /**
      * Get Value of an Attribute.
      *
      * @param string $name Name of the Attribute.
@@ -370,6 +392,15 @@ class Route
         }
 
         return null;
+    }
+
+
+    public function getAttributeOrDefault(string $name, array $enum, $default = null)
+    {
+
+        $attr = ( $this->attributes[$name]['value'] ?? null );
+
+        return ( array_combine($enum, $enum)[$attr] ?? $default );
     }
 
     /**

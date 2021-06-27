@@ -303,15 +303,19 @@ class Route
      * @since  v1.0
      * @throws ParamOtosetException On routeParameterByName.
      * @throws MethodFopException On getNonexistingParameterForRoute.
-     * @return string Param's value.
+     * @return null|string Param's value.
      */
-    public function getParam(string $name) : string
+    public function getParam(string $name, bool $throw = true) : ?string
     {
 
         foreach ($this->params as $order => $param) {
             if ($param['name'] === $name) {
                 return $param['value'];
             }
+        }
+
+        if ($throw === false) {
+            return null;
         }
 
         try {

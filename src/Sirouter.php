@@ -101,6 +101,7 @@ class Sirouter
     public static function call(string $url, string $method, string $attributes = '') : void
     {
 
+        // Define header.
         header('Access-Control-Allow-Origin: *');
 
         // Find route.
@@ -143,6 +144,10 @@ class Sirouter
 
             // Create class.
             $class = new $className();
+
+            if ($class->getConstructionFailed() === true) {
+                return;
+            }
 
             // Chk if this is a Resource class.
             if (is_a($class, 'Przeslijmi\Sirouter\Resource') === false) {

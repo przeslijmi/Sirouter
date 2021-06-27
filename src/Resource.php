@@ -23,6 +23,8 @@ abstract class Resource
      */
     protected $route;
 
+    protected $constructionFailed = false;
+
     protected $response = [
         'status' => 'success',
         'data' => [
@@ -124,5 +126,17 @@ abstract class Resource
     {
 
         $this->route = $route;
+    }
+
+    public function getResponse() : array
+    {
+
+        return $this->response;
+    }
+
+    public function getConstructionFailed() : bool
+    {
+
+        return $this->constructionFailed;
     }
 }

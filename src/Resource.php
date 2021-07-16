@@ -73,7 +73,7 @@ abstract class Resource
             }
         }
 
-        echo json_encode($response, JSON_PRETTY_PRINT);
+        echo json_encode($response, ( JSON_PRETTY_PRINT | JSON_INVALID_UTF8_SUBSTITUTE ) );
     }
 
     /**

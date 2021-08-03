@@ -171,9 +171,14 @@ class Sirouter
                 }
             }
 
-            // Finally - call route.
+            // Finally - call route - by call method - or directly.
             $class->setRoute($route);
-            $class->$methodName();
+
+            if (method_exists($class, 'call') === true) {
+                $class->call($methodName);
+            } else {
+                $class->$methodName();
+            }
 
         // } catch (\Exception $e) {
             // throw (new MethodFopException('registeredRouteCanNotBeCalled', $e))

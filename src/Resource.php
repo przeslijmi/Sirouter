@@ -32,6 +32,8 @@ abstract class Resource
         ],
     ];
 
+    protected $code;
+
     /**
      * Sends JSON response to the client.
      *
@@ -45,6 +47,9 @@ abstract class Resource
      */
     protected function sendJson($response, int $code = 200) : void
     {
+
+        // Save code.
+        $this->code = $code;
 
         // Set headers.
         http_response_code($code);

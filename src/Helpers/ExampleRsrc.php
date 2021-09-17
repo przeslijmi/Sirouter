@@ -27,7 +27,6 @@ class ExampleRsrc extends Resource
         $this->sendJson($response);
     }
 
-
     /**
      * Answers for PUT HTTP RESTful call with params.
      *

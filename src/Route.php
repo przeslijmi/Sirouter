@@ -398,7 +398,6 @@ class Route
         return null;
     }
 
-
     public function getAttributeOrDefault(string $name, array $enum, $default = null)
     {
 
